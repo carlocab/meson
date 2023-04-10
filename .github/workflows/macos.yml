@@ -83,6 +83,10 @@ jobs:
         python3 -m pip install --upgrade pip
         python3 -m pip install cython coverage codecov
     - env:
+        PATCH: https://github.com/llvm/llvm-project/files/10983320/61436.patch.txt
+      run: curl -L "$PATCH" | patch -p4 LLVM-Config.cmake
+      working-directory: /usr/local/opt/llvm/lib/cmake/llvm
+    - env:
         CPPFLAGS: "-I/usr/local/include"
         LDFLAGS: "-L/usr/local/lib"
         MESON_ARGS: --unity=${{ matrix.unity }}
